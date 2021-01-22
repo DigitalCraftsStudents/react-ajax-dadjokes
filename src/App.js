@@ -52,13 +52,32 @@ function App() {
                     // but also add the new joke?
   }
   
+  function deleteJoke(id) {
+    // .filter out a joke from the jokeArray
+      // use the joke's .id to identify the joke to
+      // delete!!!
+    // setJokeArray using the newly filtered array
+    console.log(`You want to delete ${id}`);
+    const filteredArray = jokeArray.filter(j=> j.id !== id);
+    // const filteredArray = jokeArray.filter(j => {
+    //   if (j.id === id) {
+    //     return false;  // include in new array? false
+    //   } else {
+    //     return true;   // include in new array? true
+    //   }
+    // });
+    setJokeArray(filteredArray);
+  }
 
   //console.log(`This is the joke in state: `, joke);
   return (
     <div className="App">
       <Header />
       <JokeButton handleClick={getJoke} />
-      <JokesContainer jokes={jokeArray}/>
+      <JokesContainer 
+        jokes={jokeArray}
+        handleDelete={deleteJoke}
+      />
     </div>
   );
 }

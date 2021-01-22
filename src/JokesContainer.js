@@ -2,14 +2,25 @@
 import React from 'react';
 
 // 3. define
-function JokesContainer(props) {
+// You can destructure props on the way into the function!
+function JokesContainer({ jokes, handleDelete }) {
+    //const { jokes, handleDelete } = props;
+
+  
     return (
         <section>
             <h3>The latest joke:</h3>
             {
-                props.jokes.map(joke => (
+                jokes.map(joke => (
                     <p key={joke.id}
-                    >{joke.joke}</p>
+                    >{joke.joke}
+                    <button
+                      onClick={(e) => {
+                        console.log('they clicked delete');
+                        handleDelete(joke.id);
+                    }}
+                    >X</button>
+                    </p>
                 ))
             }
         </section>
