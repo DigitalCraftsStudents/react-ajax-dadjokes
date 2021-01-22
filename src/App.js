@@ -39,10 +39,36 @@ function App() {
     // the value of the variable.
     // That tells React that it should redraw.
     //setJoke(jokeData.joke);
-    setJokeArray([    // set it to a brand new array
+    let sortedArr = [    // set it to a brand new array
       ...jokeArray,   // that contains all the old jokes
       jokeData        // and the new joke
-    ]);
+    ];
+    sortedArr.sort((a, b) => {
+      // return -1, 0, or 1
+      if (a.joke < b.joke) {
+        return -1;
+      } else if (b.joke < a.joke) {
+        return 1;
+      } else {
+        return 0;
+      }
+    });
+
+    // ensure uniques
+    // get all the IDs (just the IDs)
+    const allIDs = sortedArr.map(j => j.id);
+    const uniqueIDs = new Set(allIDs);
+    const uniqueJokesArray = Array.from(uniqueIDs).map(id => sortedArr.find(j => j.id === id));
+
+    if (uniqueJokesArray.length !== sortedArr.length) {
+      console.log('DUPE REMOVED!');
+    }
+
+    setJokeArray(uniqueJokesArray);
+    // setJokeArray([    // set it to a brand new array
+    //   ...jokeArray,   // that contains all the old jokes
+    //   jokeData        // and the new joke
+    // ]);
     // React knows that it's the same variable
     // at the same address in memory.
     // It's not going to look inside the array
