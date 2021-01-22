@@ -3,7 +3,7 @@ import Header from './Header';
 import JokeButton from './JokeButton';
 import JokesContainer from './JokesContainer';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 function App() {
   // tells React to perform actions that
@@ -15,28 +15,34 @@ function App() {
   // if anything needs redrawing in the actual/live DOM on the page.
   // This "calculation" and "reconciliation" process is known as
   // React's Virtual DOM.
-  useEffect(() => {
-    async function getJoke() {
-      // fetch the joke
-      const jokePromise = fetch('https://icanhazdadjoke.com', {
-          headers: {
-              Accept: 'application/json'
-          }
-      });
-      const response = await jokePromise;
-      const jokeData = await response.json();
-      
-      console.log(jokeData.joke);
-    }
-    getJoke();
-  });
 
-  const [joke, setJoke] = useState("who's there"); 
+  async function getJoke() {
+    // fetch the joke
+    const jokePromise = fetch('https://icanhazdadjoke.com', {
+        headers: {
+            Accept: 'application/json'
+        }
+    });
+    const response = await jokePromise;
+    const jokeData = await response.json();
+    
+    console.log(jokeData.joke);
+    // If React is managing a variable for us
+    // via useState(), we CANNOT assign to it.
+    //joke = jokeData.joke; // NOOOOOOOO!
+
+    // Instead, we should ask React to update
+    // the value of the variable.
+    // That tells React that it should redraw.
+    setJoke(jokeData.joke);
+  }
+
+  const [joke, setJoke] = useState("(joke placeholder)"); 
   console.log(`This is the joke in state: `, joke);
   return (
     <div className="App">
       <Header />
-      <JokeButton />
+      <JokeButton handleClick={getJoke} />
       <JokesContainer joke={joke}/>
     </div>
   );

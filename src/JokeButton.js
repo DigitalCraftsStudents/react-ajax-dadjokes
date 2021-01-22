@@ -2,10 +2,10 @@
 import React from 'react';
 
 // 3. define
-function JokeButton() {
+function JokeButton(props) {
     return (
         <nav>
-            <button>
+            <button onClick={props.handleClick}>
                 Get a new Joke!
             </button>
         </nav>

@@ -5,7 +5,7 @@ import React from 'react';
 function JokesContainer(props) {
     return (
         <section>
-            <h3>All the jokes:</h3>
+            <h3>The latest joke:</h3>
             <p>{props.joke}</p>
         </section>
     );
