@@ -6,7 +6,9 @@ import JokesContainer from './JokesContainer';
 import { useState } from 'react';
 
 function App() {
-  const [jokeArray, setJokeArray] = useState(["(joke placeholder)"]); 
+  // Pass useState() an empty version of what
+  // you really want store.
+  const [jokeArray, setJokeArray] = useState([]); 
   
   // tells React to perform actions that
   // are not directly related to drawing.
@@ -28,7 +30,7 @@ function App() {
     const response = await jokePromise;
     const jokeData = await response.json();
     
-    console.log(jokeData.joke);
+    console.log(jokeData);
     // If React is managing a variable for us
     // via useState(), we CANNOT assign to it.
     //joke = jokeData.joke; // NOOOOOOOO!
@@ -39,7 +41,7 @@ function App() {
     //setJoke(jokeData.joke);
     setJokeArray([    // set it to a brand new array
       ...jokeArray,   // that contains all the old jokes
-      jokeData.joke   // and the new joke
+      jokeData        // and the new joke
     ]);
     // React knows that it's the same variable
     // at the same address in memory.

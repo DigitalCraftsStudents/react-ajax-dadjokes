@@ -8,7 +8,8 @@ function JokesContainer(props) {
             <h3>The latest joke:</h3>
             {
                 props.jokes.map(joke => (
-                    <p>{joke}</p>
+                    <p key={joke.id}
+                    >{joke.joke}</p>
                 ))
             }
         </section>
