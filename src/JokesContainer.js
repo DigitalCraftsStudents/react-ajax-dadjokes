@@ -6,7 +6,11 @@ function JokesContainer(props) {
     return (
         <section>
             <h3>The latest joke:</h3>
-            <p>{props.joke}</p>
+            {
+                props.jokes.map(joke => (
+                    <p>{joke}</p>
+                ))
+            }
         </section>
     );
 }

@@ -6,6 +6,8 @@ import JokesContainer from './JokesContainer';
 import { useState } from 'react';
 
 function App() {
+  const [jokeArray, setJokeArray] = useState(["(joke placeholder)"]); 
+  
   // tells React to perform actions that
   // are not directly related to drawing.
   // aka "side effects"
@@ -34,16 +36,27 @@ function App() {
     // Instead, we should ask React to update
     // the value of the variable.
     // That tells React that it should redraw.
-    setJoke(jokeData.joke);
+    //setJoke(jokeData.joke);
+    setJokeArray([    // set it to a brand new array
+      ...jokeArray,   // that contains all the old jokes
+      jokeData.joke   // and the new joke
+    ]);
+    // React knows that it's the same variable
+    // at the same address in memory.
+    // It's not going to look inside the array
+    // to see if it has changed.
+    //jokeArray.push(jokeData.joke);
+    //setJokeArray(jokeArray); // how do I keep what I had before
+                    // but also add the new joke?
   }
+  
 
-  const [joke, setJoke] = useState("(joke placeholder)"); 
-  console.log(`This is the joke in state: `, joke);
+  //console.log(`This is the joke in state: `, joke);
   return (
     <div className="App">
       <Header />
       <JokeButton handleClick={getJoke} />
-      <JokesContainer joke={joke}/>
+      <JokesContainer jokes={jokeArray}/>
     </div>
   );
 }
